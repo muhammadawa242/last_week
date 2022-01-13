@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block main %}
+
+    <table id="table" border="1" class="space left">
+        <thead class="jumbotron">
+            <tr>
+                <td>Name </td>
+                <td> Symbol </td>
+                <td> Shares </td>
+                <td> Price </td>
+                <td> Total </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row, share in zip(rows,shares) %}
+            {% if share['SUM(share)'] > 0 %}
+                <tr>
+                    <td>{{row.name}} </td>
+                    <td> {{row.symbol}} </td>
+                    <td> {{share['SUM(share)']}} </td>
+                    <td> {{row.price | usd}} </td>
+                    {% set total = share['SUM(share)'] * row.price %}
+                    <td> {{total | usd}} </td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% for i in range(4) %}
+    <br />
+    {% endfor %}
+    <div class="center"><b>CASH: </b> {{cash | usd}}</div>
+    <div class="center" id="total"></div>
+
+    <script>
+
+        let table = document.querySelector("#table");
+        let sum = {{cash}};
+
+        for (let i = 1; i < table.rows.length; i++)
+        {
+            let t = table.rows[i].cells[4].innerHTML.substring(2);
+            t = t.replace(',','');
+            sum = sum + parseFloat(t);
+        }
+
+        document.querySelector("#total").innerHTML = "<b>TOTLAL: $</b>" + sum;
+
+    </script>
+
+{% endblock %}

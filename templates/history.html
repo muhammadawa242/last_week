@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %} History {% endblock %}
+
+{% block main %}
+
+    <table border="1" class="space left">
+        <thead class="jumbotron">
+            <tr>
+                <td>Symbol </td>
+                <td> Share </td>
+                <td> Transacted </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in history %}
+                <tr>
+                    <td>{{row.symbol}} </td>
+                    <td> ${{row.share}} </td>
+                    <td> {{row.time}} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

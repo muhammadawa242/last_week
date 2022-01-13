@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted
+{% endblock %}
+
+{% block main %}
+    <table class="jumbotron">
+            <tr>
+                <td>Name</td>
+                <td>Price</td>
+                <td>Symbol</td>
+            </tr>
+            <tr>
+                <td>{{symbol_dict.name}}</td>
+                <td>{{symbol_dict.price | usd}}</td>
+                <td>{{symbol_dict.symbol}}</td>
+            </tr>
+    </table>
+
+{% endblock %}
